@@ -1,34 +1,41 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+
+const GET_USERS = gql`
+  query getAllUsers{
+    Users {
+      id
+      name
+    }
+  }
+`
+
+const UserList = ({ data: {loading, error, users }}) => {
+  if (loading) {
+    return <p>Loading...</p>
+  }
+  if (error) {
+    return <p>{error.message}</p>
+  }
+
+  return <ul>
+    {users.map( user => <p key={user.id}>{user.name}</p>)}
+  </ul>
+}
+
+const UserListWithData = graphql(GET_USERS)(UserList)
 
 class App extends Component {
-
-  state = {
-    greeting: "Loading..."
-  }
-
-  updateGreeting = (newGreeting) => {
-    this.setState({greeting: newGreeting });
-  }
-
-  fetchGreeting = () => {
-    fetch('/greeting')
-      .then(response => response.json())
-      .then(response => this.updateGreeting(response[0].greeting))
-  }
-
-  componentDidMount() {
-    console.log("Mounted.")
-    this.fetchGreeting();
-  }
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1>{this.state.greeting}</h1>
+          <UserListWithData />
         </header>
       </div>
     );
