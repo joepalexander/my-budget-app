@@ -3,28 +3,36 @@ import logo from './logo.svg';
 import './App.css';
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+import { Query } from 'react-apollo'
+
+import AddUser from './components/AddUser'
 
 const GET_USERS = gql`
-  query users{
-    Users {
-      id
+  {
+    users {
+      id,
       name
     }
   }
 `
 
-const UserList = ({ data: {loading, error, users }}) => {
-  if (loading) {
-    return <p>Loading...</p>
-  }
-  if (error) {
-    return <p>{error.message}</p>
-  }
+const UserList = () => (
 
-  return <ul>
-    {users.map( user => <p key={user.id}>{user.name}</p>)}
-  </ul>
-}
+  <Query query={GET_USERS}>
+      
+      {({loading, error, data }) => {
+        
+        if (loading) return <p>Loading...</p>
+        
+        if (error) return <p>{error.message}</p>
+        
+        return <ul>
+                {data.users.map( user => <p key={user.id}>{user.name}</p>)}
+              </ul>
+      }}
+    </Query>
+)
+    
 
 const UserListWithData = graphql(GET_USERS)(UserList)
 
@@ -36,6 +44,7 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <UserListWithData />
+          <AddUser />
         </header>
       </div>
     );
