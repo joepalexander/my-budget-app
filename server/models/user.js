@@ -7,7 +7,9 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false,
       autoIncrement: true
-    }
+    },
+    updatedAt: DataTypes.INTEGER,
+    createdAt: DataTypes.INTEGER,
   }, {});
   Users.associate = function(models) {
     // associations can be defined here

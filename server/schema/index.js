@@ -2,18 +2,12 @@ const { makeExecutableSchema } = require("graphql-tools");
 const mutations = require("./mutations");
 const queries = require("./queries");
 const types = require("./types");
+const { gql } = require("apollo-server-express");
 
-const typeDefs = [mutations, queries, types];
 
+const typeDefs = gql`
+  ${types} 
+  ${queries} 
+  ${mutations}
+`
 module.exports = typeDefs;
-
-// module.exports = [
-//   mutations,
-//   queries,
-//   types
-// ]
-
-// module.exports = {
-//   Query: queries,
-//   Mutations: mutations
-// };

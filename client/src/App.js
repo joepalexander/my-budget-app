@@ -5,7 +5,7 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 const GET_USERS = gql`
-  query getAllUsers{
+  query users{
     Users {
       id
       name

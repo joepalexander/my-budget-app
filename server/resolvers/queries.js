@@ -1,5 +1,5 @@
 module.exports = {
   users: (parent, args, { db }, info) => {
-    return db.Users.getAllUsers();
+    return db.Users.findAll();
   }
 }
