@@ -1,5 +1,5 @@
 module.exports = {
-  addUser: (parent, args, { db }, info) => {
+  createUser: (parent, args, { db }, info) => {
     return db.Users.create({
       name: args.name,
       createdAt: new Date(),
