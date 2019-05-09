@@ -24,11 +24,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE
     },
     transation_date: {
-      allowNull: false,
       type: DataTypes.DATE
     },
     merchant_id: {
-      allowNull: false,
       type: DataTypes.INTEGER,
       references: {
         model: 'merchant',
