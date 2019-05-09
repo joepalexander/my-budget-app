@@ -4,11 +4,12 @@ module.exports = `
   scalar Date
   type user {
     id: ID
-    first_name: String
-    last_name: String
-    created_at: Date
-    updated_at: Date
+    firstName: String
+    lastName: String
+    createdAt: Date
+    updatedAt: Date
     email: String
-    password: String
+    hashedPass: String
+    salt: String
   }
 `;

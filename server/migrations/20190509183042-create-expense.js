@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
@@ -16,25 +16,25 @@ module.exports = {
           key: 'id'
         }
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      transation_date: {
+      transationDate: {
         type: Sequelize.DATE
       },
-      merchant_id: {
+      merchantId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'merchants',
           key: 'id'
         }
       },
-      category_id: {
+      categoryId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {

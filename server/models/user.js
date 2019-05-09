@@ -7,19 +7,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true
     },
-    first_name: {
+    firstName: {
       allowNull: false,
       type: DataTypes.STRING
     },
-    last_name: {
+    lastName: {
       allowNull: false,
       type: DataTypes.STRING
     },
-    created_at: {
+    createdAt: {
       allowNull: false,
       type: DataTypes.DATE
     },
-    updated_at: {
+    updatedAt: {
       allowNull: false,
       type: DataTypes.DATE
     },
@@ -27,7 +27,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
-    password: {
+    hashedPass: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    salt: {
       allowNull: false,
       type: DataTypes.STRING
     }

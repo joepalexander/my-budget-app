@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    user_id: {
+    userId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
@@ -15,25 +15,25 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    created_at: {
+    createdAt: {
       allowNull: false,
       type: DataTypes.DATE
     },
-    updated_at: {
+    updatedAt: {
       allowNull: false,
       type: DataTypes.DATE
     },
-    transation_date: {
+    transationDate: {
       type: DataTypes.DATE
     },
-    merchant_id: {
+    merchantId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'merchant',
         key: 'id'
       }
     },
-    category_id: {
+    categoryId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
