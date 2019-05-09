@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   expense.associate = function(models) {
-    expense.belongsTo(models.user)
+    // associations can be defined here
   };
   return expense;
 };

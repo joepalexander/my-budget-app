@@ -2,6 +2,6 @@
 module.exports = {
   // ...userResolver.queries
   users: (parent, args, { db }, info) => {
-    return db.Users.findAll();
+    return db.user.findAll();
   }
 }

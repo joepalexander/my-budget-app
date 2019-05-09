@@ -1,11 +1,11 @@
 module.exports = {
   createUser: (parent, args, { db }, info) => {
-    return db.Users.create({
+    return db.users.create({
       name: args.name,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     }).then(newUser => {
-      return db.Users.findAll();
+      return db.users.findAll();
     }).catch(console.log);
   }
 };
