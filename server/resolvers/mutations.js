@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt") ;
 
 module.exports = {
   
-  login: async (parent, args, { db }, info) => {
+  login: async (parent, args, { db, req }, info) => {
     const user = await db.user.findOne({ where: { email: args.email}});
     if (!user) {
       return null;
@@ -13,6 +13,8 @@ module.exports = {
       console.log("Wrong Pass.")
       return null;
     }
+
+    req.session.userId = user.id;
 
     return user;
   },
