@@ -3,7 +3,18 @@ const bcrypt = require("bcrypt") ;
 module.exports = {
   
   login: async (parent, args, { db }, info) => {
+    const user = await db.user.findOne({ where: { email: args.email}});
+    if (!user) {
+      return null;
+    }
 
+    const valid = await bcrypt.compare(args.password, user.hashedPass);
+    if(!valid) {
+      console.log("Wrong Pass.")
+      return null;
+    }
+
+    return user;
   },
   
   register: async (parent, args, { db }, info) => {
