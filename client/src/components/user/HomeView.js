@@ -12,11 +12,13 @@ class HomeView extends Component {
 
   render(){
     const { loadHome } = this.props;
-    console.log (loadHome.loading);
     if(loadHome.loading) {
       return <div>Loading...</div>
     }
-    console.log(loadHome);
+
+    if(!loadHome.home){
+      return <div>No user logged in.</div>
+    }
     const home = loadHome.home;
 
     return (<div>{`Welcome ${home.firstName}`}</div>)
