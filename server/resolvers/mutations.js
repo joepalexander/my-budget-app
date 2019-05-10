@@ -1,11 +1,26 @@
+const bcrypt = require("bcrypt") ;
+
 module.exports = {
-  createUser: (parent, args, { db }, info) => {
-    return db.users.create({
-      name: args.name,
+  
+  login: async (parent, args, { db }, info) => {
+
+  },
+  
+  register: async (parent, args, { db }, info) => {
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPass = bcrypt.hashSync(args.password, salt);
+    await db.user.create({
+      firstName: args.firstName,
+      lastName: args.lastName,
+      email: args.email,
+      hashedPass: hashedPass,
+      salt: salt,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }).then(newUser => {
-      return db.users.findAll();
+    }).then( () => {
+      console.log("User Registered");
     }).catch(console.log);
+
+    return true;
   }
 };

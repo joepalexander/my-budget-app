@@ -3,6 +3,7 @@ const { gql } = require("apollo-server-express");
 
 module.exports = `
   type Mutation {
-    createUser(name: String!): user
+    login(email: String!, password: String!): user
+    register(firstName: String!, lastName: String!, email: String!, password: String!): Boolean
   }
 `;
