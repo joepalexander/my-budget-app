@@ -6,7 +6,12 @@ module.exports = {
     return db.user.findAll();
   },
 
-  userByEmail: (parent, args, { db }, info) => {
-    return db.user.findOne({ where: { email: args.email}})
+  home: (parent, args, {db, req}, info) => {
+    if(!req.session.userId) {
+      return null;
+    }
+
+    return db.user.findOne({where: { id: req.session.userId}});
+
   }
 }

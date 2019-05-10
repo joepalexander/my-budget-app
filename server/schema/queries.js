@@ -4,6 +4,6 @@ const { gql } = require("apollo-server-express");
 module.exports = `
   type Query {
     users: [user]
-    userByEmail(email: String!): user
+    home: user
   }
 `;

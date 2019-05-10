@@ -1,7 +1,5 @@
 //NPM
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
 import _ from 'lodash';
 
 
@@ -25,8 +23,16 @@ class LoginView extends Component {
     })
   }
 
+  login = async (e) => {
+    e.preventDefault();
+
+    const response =  await this.props.login({
+      variables: this.state
+    })
+    this.props.history.push("/home");
+  }
+
   render() {
-    const {email, password} = this.state;
     return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}> 
         <div>
@@ -43,13 +49,13 @@ class LoginView extends Component {
             type="text" 
             name="password" 
             placeholder="Password" 
-            value={this.state.email} 
+            value={this.state.password} 
             onChange={this.handleChange} 
           />
         </div>
         <div>
           <button 
-            onClick={ () => console.log("Logging in.")}>
+            onClick={this.login}>
               Login
           </button> 
         </div>
@@ -58,29 +64,16 @@ class LoginView extends Component {
   }
 }
 
-export const FIND_USER = gql`
-  query findUser($email: String!) {
-    findUserByEmail(email: $email) {
-      id,
+export const login = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      id
       firstName
       lastName
-      hashedPass
-      salt
+      email
     }
   }
 `
 
-export default graphql(
-  FIND_USER, 
-  { 
-    name: 'findUserByEmail',
-    options: ownProps => {
-      return {
-        variables: {
-          email: ownProps.match.params.email,
-          hashedPass: ownProps.match.params.email
-        }
-      }
-    }
-  }
-)(LoginView)
+export default graphql(login, {name: 'login'})(LoginView)
+
