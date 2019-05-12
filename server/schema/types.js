@@ -11,5 +11,11 @@ module.exports = `
     email: String
     hashedPass: String
     salt: String
+  },
+
+  type category {
+    id: ID
+    name: String
+    description: String
   }
 `;

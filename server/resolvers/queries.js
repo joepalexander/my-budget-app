@@ -13,5 +13,9 @@ module.exports = {
 
     return db.user.findOne({where: { id: req.session.userId}});
 
-  }
+  },
+
+  categories: (parent, args, { db }, info) => {
+    return db.user.findAll();
+  },
 }
