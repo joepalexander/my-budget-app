@@ -13,6 +13,14 @@ module.exports = `
     salt: String
   },
 
+  type budget {
+    id: ID
+    userId: ID
+    categoryId: ID
+    durationInMonths: Int
+    startDate: Date
+  },
+
   type category {
     id: ID
     name: String

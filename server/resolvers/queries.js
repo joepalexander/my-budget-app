@@ -15,7 +15,14 @@ module.exports = {
 
   },
 
-  categories: (parent, args, { db }, info) => {
-    return db.user.findAll();
+  budget: (parent, args, { db, req }, info) => {
+    if(!req.session.userId) {
+      return null;
+    }
+    return db.budget.findAll({where: { userId: req.session.userId}});
+  },
+
+  category: (parent, args, { db, req }, info) => {
+    return db.category.findAll({where: { id: args.id}});
   },
 }

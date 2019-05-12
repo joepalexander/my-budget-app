@@ -6,7 +6,8 @@ Will be a simple, full stack, budget app.
 
 Express
 PSQL
-Knex
+GraphQL
+Apollo
 React
 
 ## Getting Started

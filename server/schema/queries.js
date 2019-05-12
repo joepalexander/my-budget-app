@@ -5,5 +5,7 @@ module.exports = `
   type Query {
     users: [user]
     home: user
+    budget: [budget]
+    category(id: Int!): [category]
   }
 `;
