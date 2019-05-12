@@ -1,11 +1,39 @@
+const bcrypt = require("bcrypt") ;
+
 module.exports = {
-  createUser: (parent, args, { db }, info) => {
-    return db.users.create({
-      name: args.name,
+  
+  login: async (parent, args, { db, req }, info) => {
+    const user = await db.user.findOne({ where: { email: args.email}});
+    if (!user) {
+      return null;
+    }
+
+    const valid = await bcrypt.compare(args.password, user.hashedPass);
+    if(!valid) {
+      console.log("Wrong Pass.")
+      return null;
+    }
+
+    req.session.userId = user.id;
+
+    return user;
+  },
+  
+  register: async (parent, args, { db }, info) => {
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPass = bcrypt.hashSync(args.password, salt);
+    await db.user.create({
+      firstName: args.firstName,
+      lastName: args.lastName,
+      email: args.email,
+      hashedPass: hashedPass,
+      salt: salt,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }).then(newUser => {
-      return db.users.findAll();
+    }).then( () => {
+      console.log("User Registered");
     }).catch(console.log);
+
+    return true;
   }
 };
