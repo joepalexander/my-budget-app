@@ -10,7 +10,8 @@ module.exports = `
     updatedAt: Date
     email: String
     hashedPass: String
-    salt: String
+    salt: String,
+    count: Int
   },
 
   type budget {

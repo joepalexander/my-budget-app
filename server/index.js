@@ -4,25 +4,35 @@ const schema = require("./schema");
 const resolvers = require("./resolvers");
 const db = require("./models");
 const cors = require("cors");
-const session = require("express-session");
+const jwt = require("express-jwt");
+const { verify } = require("jsonwebtoken");
+const cookieParser = require("cookie-parser")
 
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
-  context: ({ req }) => ({ 
+  context: ({ req, res }) => ({ 
     db: db,
-    req: req })
-})
+    req: req,
+    res: res
+  })
+});
+
 
 const app = express();
 
-app.use(
-  session({
-    secret: "asdqwefgh",
-    resave: false,
-    saveUninitialized: false
-  })
-);
+app.use(cookieParser())
+
+app.use((req, res, next) => {
+  const accessToken = req.cookies['access-token'];
+  try {
+    const data = verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+    req.userId = 1;
+  } catch (err) {
+
+  }
+  next();
+})
 
 server.applyMiddleware({ app, cors: {
   credentials: true,
@@ -32,3 +42,4 @@ server.applyMiddleware({ app, cors: {
 app.listen({ port: 4000 }, (req) =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
+

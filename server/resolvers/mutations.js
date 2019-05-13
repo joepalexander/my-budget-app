@@ -1,22 +1,38 @@
 const bcrypt = require("bcrypt") ;
+const jwt = require("jsonwebtoken");
 
 module.exports = {
   
-  login: async (parent, args, { db, req }, info) => {
+  login: async (parent, args, { db, res }, info) => {
+    
     const user = await db.user.findOne({ where: { email: args.email}});
+   
     if (!user) {
-      return null;
+      throw new Error("Invalid Login");
     }
 
     const valid = await bcrypt.compare(args.password, user.hashedPass);
     if(!valid) {
-      console.log("Wrong Pass.")
-      return null;
+      throw new Error("Invalid Login.");
     }
 
-    req.session.userId = user.id;
+    const accessToken = jwt.sign(
+      { userId: user.id, email: user.email },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: '15min'}
+    );
+
+    const refreshToken = jwt.sign(
+      { userId: user.id, email: user.email, count: user.count },
+      process.env.REFRESH_TOKEN_SECRET,
+      { expiresIn: '7d'}
+    );
+
+    res.cookie('refresh-token', refreshToken);
+    res.cookie('access-token', accessToken);
 
     return user;
+
   },
   
   register: async (parent, args, { db }, info) => {

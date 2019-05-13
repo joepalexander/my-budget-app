@@ -4,6 +4,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 import Routes from './Routes';
+import { from } from 'zen-observable';
 
 // Pass your GraphQL endpoint to uri
 const client = new ApolloClient({ 

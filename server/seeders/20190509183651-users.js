@@ -10,7 +10,8 @@ module.exports = {
         salt: '$2b$10$2LK.aNTyajAXkc/GpaprYu',
         email: 'test1@example.com',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        count: 0
       },
       {
         firstName: 'Tom',
@@ -19,7 +20,8 @@ module.exports = {
         salt: '$2b$10$1ZWsURqKficnqCknsHaXL.',
         email: 'test2@example.com',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        count: 0
       }
     ])
   },

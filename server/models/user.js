@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
     salt: {
       allowNull: false,
       type: DataTypes.STRING
+    },
+    count: {
+      allowNull: false,
+      type: DataTypes.INTEGER
     }
   }, {});
 
