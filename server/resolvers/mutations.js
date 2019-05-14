@@ -9,7 +9,7 @@ module.exports = {
     const user = await db.user.findOne({ where: { email: args.email}});
    
     if (!user) {
-      throw new Error("Invalid Login");
+      throw new Error("User not registered.");
     }
 
     const valid = await bcrypt.compare(args.password, user.hashedPass);
@@ -19,10 +19,15 @@ module.exports = {
 
     const { accessToken, refreshToken } = util.createTokens(user);
 
-    res.cookie('refresh-token', refreshToken);
-    res.cookie('access-token', accessToken);
+    let loginResponse = {
+      user: user,
+      accessToken: accessToken,
+      refreshToken: refreshToken
+    }
+    // res.cookie('refresh-token', refreshToken);
+    // res.cookie('access-token', accessToken);
 
-    return user;
+    return loginResponse;
 
   },
   

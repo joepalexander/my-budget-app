@@ -6,8 +6,8 @@ const db = require("./models");
 const cors = require("cors");
 const jwt = require("express-jwt");
 const { verify } = require("jsonwebtoken");
-const cookieParser = require("cookie-parser")
-const util = require("./util/auth")
+const cookieParser = require("cookie-parser");
+const util = require("./util/auth");
 
 
 const server = new ApolloServer({
@@ -26,14 +26,20 @@ const app = express();
 app.use(cookieParser())
 
 app.use(async (req, res, next) => {
-  const refreshToken = req.cookies['refresh-token'];
-  const accessToken = req.cookies['access-token'];
+  // console.log('request: ', req)
+  const refreshToken = req.headers['refreshtoken'];
+  const accessToken = req.headers['accesstoken'];
+
+  console.log('accessToken: ', accessToken)
 
   if(!refreshToken && !accessToken){
+    console.log("refresh and access token missing")
     return next()
   }
   try {
-    const data = verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+    const accessTokenArray = accessToken.split(" "),
+    data = verify(accessTokenArray[1], process.env.ACCESS_TOKEN_SECRET);
+    console.log("data.userId: ", data.userId)
     req.userId = data.userId;
     return next()
   } catch (err) {}
@@ -45,30 +51,32 @@ app.use(async (req, res, next) => {
   let data;
 
   try {
-    data = verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const refreshTokenArray = refreshToken.split(" ")
+    data = verify(refreshTokenArray[1], process.env.REFRESH_TOKEN_SECRET);
   } catch (err) {
     return next();
   }
 
   const user = await db.user.findByPk(data.userId);
   // token has been invalidated
-  if(!user ||user.count !== data.count){
+  if(!user || user.count !== data.count){
     return next();
   }
 
   const tokens = util.createTokens(user);
   
-  res.cookie('refresh-token', tokens.refreshToken);
-  res.cookie('access-token', tokens.accessToken);
-  req.userId = user.id;
+  res.headers('refreshtoken', tokens.refreshToken);
+  res.headers('accesstoken', tokens.accessToken);
+  req.userId = data.userId;
 
   next();
-})
+});
 
 server.applyMiddleware({ app, cors: {
   credentials: true,
   origin: 'http://localhost:3000'
-} });
+  }
+});
 
 app.listen({ port: 4000 }, (req) =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)

@@ -29,6 +29,11 @@ class LoginView extends Component {
     const response =  await this.props.login({
       variables: this.state
     })
+    // console.log(response)
+    // cookie user or use localStorage to store user and user token
+    localStorage.setItem('accessToken', response.data.login.accessToken)
+    localStorage.setItem('refreshToken', response.data.login.refreshToken)
+
     this.props.history.push("/home");
   }
 
@@ -67,10 +72,14 @@ class LoginView extends Component {
 export const login = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      id
-      firstName
-      lastName
-      email
+      user {
+        id
+        firstName
+        lastName
+        email
+      }
+      accessToken
+      refreshToken
     }
   }
 `

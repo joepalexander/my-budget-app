@@ -14,6 +14,12 @@ module.exports = `
     count: Int
   },
 
+  type loginResponse {
+    user: user
+    accessToken: String
+    refreshToken: String
+  }
+
   type budget {
     id: ID
     userId: ID
