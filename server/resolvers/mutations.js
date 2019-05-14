@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt") ;
 const jwt = require("jsonwebtoken");
+const util = require("../util/auth")
 
 module.exports = {
   
@@ -13,20 +14,10 @@ module.exports = {
 
     const valid = await bcrypt.compare(args.password, user.hashedPass);
     if(!valid) {
-      throw new Error("Invalid Login.");
+      throw new Error("Invalid Login."); 
     }
 
-    const accessToken = jwt.sign(
-      { userId: user.id, email: user.email },
-      process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '15min'}
-    );
-
-    const refreshToken = jwt.sign(
-      { userId: user.id, email: user.email, count: user.count },
-      process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: '7d'}
-    );
+    const { accessToken, refreshToken } = util.createTokens(user);
 
     res.cookie('refresh-token', refreshToken);
     res.cookie('access-token', accessToken);
@@ -51,5 +42,25 @@ module.exports = {
     }).catch(console.log);
 
     return true;
+  },
+
+  invalidateTokens: async (_, __, { db, req }, ___ ) => {
+    if(!req.userId){
+      return false;
+    }
+
+    const user = await db.user.findByPk(req.userId)
+      if(!user){
+        return false;
+      }
+
+    let newCount = user.count += 1
+    
+    await user.update({
+      count: newCount
+    })
+
+    return true;
   }
+
 };
