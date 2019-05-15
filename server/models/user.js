@@ -34,11 +34,15 @@ module.exports = (sequelize, DataTypes) => {
     salt: {
       allowNull: false,
       type: DataTypes.STRING
+    },
+    count: {
+      allowNull: false,
+      type: DataTypes.INTEGER
     }
   }, {});
 
   user.associate = function(models) {
-    // associations can be defined here
+    user.hasMany(models.budget, {as: 'budget'})
   };
 
   return user;

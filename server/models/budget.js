@@ -40,8 +40,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE
     },
   }, {});
+
   budget.associate = function(models) {
-    // associations can be defined here
+    budget.belongsTo(models.user, {as: 'user'})
+    budget.belongsTo(models.category, {as: 'category'})
   };
   return budget;
 };

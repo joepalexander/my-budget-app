@@ -35,6 +35,10 @@ module.exports = {
       salt: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      count: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       }
       
     });
