@@ -1,11 +1,8 @@
 //NPM
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
-import _ from 'lodash';
 
 // GraphQL
-import { graphql, withApollo } from 'react-apollo'
+import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 class HomeView extends Component {
@@ -21,17 +18,23 @@ class HomeView extends Component {
     }
     const home = loadHome.home;
 
-    return (<div>{`Welcome ${home.firstName}`}</div>)
+    return (<div>{`${JSON.stringify(home)}`}</div>)
   }
 }
 
 export const LOAD_HOME = gql`
   query loadHome {
     home {
-      id
-      firstName
-      lastName
-      email
+      user {
+        firstName
+        lastName
+        email
+      }
+      budget {
+        id
+        startDate
+        durationInMonths
+      } 
     }
   }
 `

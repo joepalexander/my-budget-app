@@ -26,20 +26,15 @@ const app = express();
 app.use(cookieParser())
 
 app.use(async (req, res, next) => {
-  // console.log('request: ', req)
   const refreshToken = req.headers['refreshtoken'];
   const accessToken = req.headers['accesstoken'];
 
-  console.log('accessToken: ', accessToken)
-
   if(!refreshToken && !accessToken){
-    console.log("refresh and access token missing")
     return next()
   }
   try {
-    const accessTokenArray = accessToken.split(" "),
+    const accessTokenArray = accessToken.split(" "), //separate "Bearer token#"
     data = verify(accessTokenArray[1], process.env.ACCESS_TOKEN_SECRET);
-    console.log("data.userId: ", data.userId)
     req.userId = data.userId;
     return next()
   } catch (err) {}
@@ -65,8 +60,6 @@ app.use(async (req, res, next) => {
 
   const tokens = util.createTokens(user);
   
-  res.headers('refreshtoken', tokens.refreshToken);
-  res.headers('accesstoken', tokens.accessToken);
   req.userId = data.userId;
 
   next();

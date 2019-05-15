@@ -12,6 +12,7 @@ module.exports = `
     hashedPass: String
     salt: String,
     count: Int
+    budget: [budget]
   },
 
   type loginResponse {
@@ -20,10 +21,22 @@ module.exports = `
     refreshToken: String
   }
 
+  type userBudget {
+    user: user
+    budget: [budget]
+  },
+
   type budget {
     id: ID
     userId: ID
     categoryId: ID
+    durationInMonths: Int
+    startDate: Date
+  },
+
+  type budgetItem {
+    id: ID
+    category: category
     durationInMonths: Int
     startDate: Date
   },
@@ -34,3 +47,5 @@ module.exports = `
     description: String
   }
 `;
+
+//cap types "User"

@@ -9,12 +9,12 @@ module.exports = {
     const user = await db.user.findOne({ where: { email: args.email}});
    
     if (!user) {
-      throw new Error("User not registered.");
+      return res.status(404)
     }
 
     const valid = await bcrypt.compare(args.password, user.hashedPass);
     if(!valid) {
-      throw new Error("Invalid Login."); 
+      return res.status(400)
     }
 
     const { accessToken, refreshToken } = util.createTokens(user);
@@ -42,6 +42,7 @@ module.exports = {
       salt: salt,
       createdAt: new Date(),
       updatedAt: new Date(),
+      count: 0
     }).then( () => {
       console.log("User Registered");
     }).catch(console.log);

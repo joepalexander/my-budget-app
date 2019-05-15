@@ -7,7 +7,7 @@ module.exports = {
     const accessToken = jwt.sign(
       { userId: user.id, email: user.email },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '15min'}
+      { expiresIn: '60min'}
     );
 
     const refreshToken = jwt.sign(

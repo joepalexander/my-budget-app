@@ -1,10 +1,8 @@
 //NPM
 import React, { Component } from 'react';
-import _ from 'lodash';
-
 
 // GraphQL
-import { graphql, withApollo } from 'react-apollo'
+import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 //Componemts
