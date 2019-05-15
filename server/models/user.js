@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   user.associate = function(models) {
-    user.hasMany(models.budget)
+    user.hasMany(models.budget, {as: 'budget'})
   };
 
   return user;

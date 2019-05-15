@@ -5,29 +5,37 @@ module.exports = {
   
   users: (parent, args, { db }, info) => {
     return db.user.findAll({
-      include: [{model: db.budget }]
+      include: [
+        {
+          model: db.budget, 
+          as: 'budget',
+          include: [
+            {
+              model: db.category,
+              as: 'category'
+            }
+          ]
+        }
+      ]
     });
   },
 
   home: async (parent, args, {db, req, res}, info) => {
-    if(!req.userId) {
-      return res.status(403)
-    }
-
-    let user = await db.user.findOne({where: { id: req.userId}});
-    let budget = await db.budget.findAll({where: {userId: req.userId}});
-
-    let budgetItems = budget.map( async (item) => {
-      let categoryObject = await db.category.findOne({where: {id: item.categoryId}});
-      item.category = await categoryObject.dataValues
+    console.log("userId: ", req.userId)
+    return await db.user.findOne({
+      where: {id: req.userId},
+      include: [
+        {
+          model: db.budget, 
+          as: 'budget',
+          include: [
+            {
+              model: db.category,
+              as: 'category'
+            }
+          ]
+        }
+      ]
     })
-
-    await Promise.all(budgetItems)
-    console.log(JSON.stringify(budgetItems))
-
-    return userBudget = {
-      user: user,
-      budget: budget
-    }
   }
 }

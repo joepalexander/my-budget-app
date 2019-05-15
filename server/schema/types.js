@@ -32,6 +32,7 @@ module.exports = `
     categoryId: ID
     durationInMonths: Int
     startDate: Date
+    category: category
   },
 
   type budgetItem {

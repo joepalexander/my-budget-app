@@ -42,7 +42,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   budget.associate = function(models) {
-    budget.belongsTo(models.user)
+    budget.belongsTo(models.user, {as: 'user'})
+    budget.belongsTo(models.category, {as: 'category'})
   };
   return budget;
 };
