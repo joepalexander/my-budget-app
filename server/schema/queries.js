@@ -5,5 +5,6 @@ module.exports = `
   type Query {
     users: [Budget]
     budget: [Budget]
+    expenses: [Expense]
   }
 `;

@@ -35,6 +35,7 @@ class HomeView extends Component {
       <div>
         <Header />
         <div>
+          <h3>Budget:</h3>
           <table>
             <tbody>
               <tr>
@@ -55,6 +56,18 @@ class HomeView extends Component {
                   )
                 })
               }
+            </tbody>
+          </table>
+          <h3>Expenses:</h3>
+          <table>
+            <tbody>
+              <tr>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Merchant</th>
+                <th>Description</th>
+              </tr>
             </tbody>
           </table>
         </div>

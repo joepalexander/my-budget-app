@@ -51,8 +51,38 @@ module.exports = {
     })
     
     return results;
+  },
+
+  expenses: async(parent, args, {db, req, res}, info) => {
+    
+    let data = await db.Expense.findAll({
+      where: { userId: 1 },
+      include: [{model: db.Merchant, as: 'merchant'}]
+    })
+
+    let formattedData = JSON.parse(JSON.stringify(data));
+    let results = [];
+
+    formattedData.forEach(item => {
+      results.push(
+        {
+          id: item.id,
+          transactionDate: item.transactionDate,
+          amount: item.amount,
+          merchant: (item.merchant ? item.merchant.name : null),
+          description: item.description
+        }
+      )
+    })
+  
+    return results;
   }
 }
+// id: ID
+// transactionDate: Date
+// merchant: String
+// amount: Int
+// description: String
 
 
 // WITH JOINS

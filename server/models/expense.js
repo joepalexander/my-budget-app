@@ -51,7 +51,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   Expense.associate = function(models) {
-    // associations can be defined here
+    Expense.belongsTo(models.Category, {as: 'category', foreignKey: 'categoryId'}),
+    Expense.belongsTo(models.Merchant, {as: 'merchant', foreignKey: 'merchantId'})
+    Expense.belongsTo(models.User, {as: 'user', foreignKey: 'userId'})
+
   };
   return Expense;
 };

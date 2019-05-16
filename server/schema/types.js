@@ -35,6 +35,19 @@ module.exports = `
     name: String
     description: String
   }
+
+  type Expense {
+    id: ID
+    transactionDate: Date
+    merchant: String
+    amount: Int
+    description: String
+  }
+
+  type Merchant {
+    id: ID
+    name: String
+  }
 `;
 
 //cap types "User"
