@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const merchant = sequelize.define('merchant', {
+  const Merchant = sequelize.define('merchant', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     }
   }, {});
-  merchant.associate = function(models) {
+  Merchant.associate = function(models) {
     // associations can be defined here
   };
-  return merchant;
+  return Merchant;
 };

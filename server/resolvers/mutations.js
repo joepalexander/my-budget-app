@@ -20,7 +20,6 @@ module.exports = {
     const { accessToken, refreshToken } = util.createTokens(user);
 
     let loginResponse = {
-      user: user,
       accessToken: accessToken,
       refreshToken: refreshToken
     }
