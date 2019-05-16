@@ -10,6 +10,11 @@ GraphQL
 Apollo
 React
 
+## Features
+
+User login and Registration
+Access Token Authentication
+
 ## Getting Started
 
 * Once you have cloned the repo onto your machine, run "npm install" in both the 'client' and 'server' directories.

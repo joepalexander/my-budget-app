@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const budget = sequelize.define('budget', {
+  const Budget = sequelize.define('Budget', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
-        model: 'user',
+        model: 'User',
         key: 'id'
       }
     },
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
-        model: 'category',
+        model: 'Category',
         key: 'id'
       }
     },
@@ -41,11 +41,11 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
 
-  budget.associate = function(models) {
-    budget.belongsTo(models.user, {as: 'user'})
-    budget.belongsTo(models.category, {as: 'category'})
+  Budget.associate = function(models) {
+    // Budget.belongsTo(models.User, {as: 'user'})
+    Budget.belongsTo(models.Category, {as: 'category', foreignKey: 'categoryId'})
   };
-  return budget;
+  return Budget;
 };
 
 

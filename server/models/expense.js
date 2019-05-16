@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const expense = sequelize.define('expense', {
+  const Expense = sequelize.define('Expense', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     merchantId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'merchant',
+        model: 'Merchant',
         key: 'id'
       }
     },
@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
       references: {
-        model: 'category',
+        model: 'Category',
         key: 'id'
       }
     },
@@ -50,8 +50,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     }
   }, {});
-  expense.associate = function(models) {
+  Expense.associate = function(models) {
     // associations can be defined here
   };
-  return expense;
+  return Expense;
 };

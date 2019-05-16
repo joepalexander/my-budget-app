@@ -5,13 +5,13 @@ module.exports = {
   createTokens: (user) => {
 
     const accessToken = jwt.sign(
-      { userId: user.id, email: user.email },
+      { userId: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '60min'}
     );
 
     const refreshToken = jwt.sign(
-      { userId: user.id, email: user.email, count: user.count },
+      { userId: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName },
       process.env.REFRESH_TOKEN_SECRET,
       { expiresIn: '7d'}
     );
