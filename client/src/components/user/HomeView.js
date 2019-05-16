@@ -26,10 +26,11 @@ class HomeView extends Component {
       return <div>Loading...</div>
     }
     if(!loadBudget.budget){
-      return <div>No user logged in.</div>
+      return <div>Budget not able to load.</div>
     }
 
     const budget = loadBudget.budget;
+    const expenses = loadBudget.expenses;
 
     return (
       <div>
@@ -62,12 +63,23 @@ class HomeView extends Component {
           <table>
             <tbody>
               <tr>
-                <th>Category</th>
                 <th>Date</th>
-                <th>Amount</th>
-                <th>Merchant</th>
                 <th>Description</th>
+                <th>Merchant</th>
+                <th>Amount</th>
               </tr>
+              {
+                expenses.map(item => {
+                  return (
+                    <tr key={item.id}>
+                      <td>{item.transationsDate}</td>
+                      <td>{item.description}</td>
+                      <td>{item.merchant}</td>
+                      <td>{item.amount / 100}</td>
+                    </tr>
+                  )
+                })
+              }
             </tbody>
           </table>
         </div>
@@ -85,6 +97,13 @@ export const LOAD_HOME = gql`
       categoryId
       name
       description
+    }
+    expenses {
+      id
+      transactionDate
+      amount
+      description
+      merchant
     }
   }
 `

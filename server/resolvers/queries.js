@@ -56,7 +56,7 @@ module.exports = {
   expenses: async(parent, args, {db, req, res}, info) => {
     
     let data = await db.Expense.findAll({
-      where: { userId: 1 },
+      where: { userId: req.userId },
       include: [{model: db.Merchant, as: 'merchant'}]
     })
 
@@ -67,6 +67,7 @@ module.exports = {
       results.push(
         {
           id: item.id,
+          categoryId: item.categoryId,
           transactionDate: item.transactionDate,
           amount: item.amount,
           merchant: (item.merchant ? item.merchant.name : null),

@@ -38,6 +38,7 @@ module.exports = `
 
   type Expense {
     id: ID
+    categoryId: ID
     transactionDate: Date
     merchant: String
     amount: Int
