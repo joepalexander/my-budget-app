@@ -6,7 +6,7 @@ module.exports = {
   
   login: async (parent, args, { db, res }, info) => {
     
-    const user = await db.user.findOne({ where: { email: args.email}});
+    const user = await db.User.findOne({ where: { email: args.email}});
    
     if (!user) {
       return res.status(404)
@@ -33,7 +33,7 @@ module.exports = {
   register: async (parent, args, { db }, info) => {
     const salt = bcrypt.genSaltSync(10);
     const hashedPass = bcrypt.hashSync(args.password, salt);
-    await db.user.create({
+    await db.User.create({
       firstName: args.firstName,
       lastName: args.lastName,
       email: args.email,

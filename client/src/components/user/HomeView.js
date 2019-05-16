@@ -12,16 +12,15 @@ import './HomeView.css'
 class HomeView extends Component {
 
   render(){
-    const { loadHome } = this.props;
-    if(loadHome.loading) {
+    const { loadBudget } = this.props;
+    if(loadBudget.loading) {
       return <div>Loading...</div>
     }
-
-    if(!loadHome.budget){
+    if(!loadBudget.budget){
       return <div>No user logged in.</div>
     }
 
-    const budget = loadHome.budget;
+    const budget = loadBudget.budget;
 
     let tokenData = jwt.decode(localStorage.getItem('accessToken'))
 
@@ -48,8 +47,8 @@ class HomeView extends Component {
                     <tr key={item.id}>
                       <td>{item.durationInMonths}</td>
                       <td>{item.startDate}</td>
-                      <td>{item.category.name}</td>
-                      <td>{item.category.description}</td>
+                      <td>{item.name}</td>
+                      <td>{item.description}</td>
                     </tr>
                   )
                 })
@@ -63,19 +62,17 @@ class HomeView extends Component {
 }
 
 export const LOAD_HOME = gql`
-  query loadHome {
+  query loadBudget {
     budget {
       id
       startDate
       durationInMonths
-      category {
-        id
-        name
-        description
-      }
+      categoryId
+      name
+      description
     }
   }
 `
 
-export default graphql(LOAD_HOME, {name: 'loadHome'})(HomeView)
+export default graphql(LOAD_HOME, {name: 'loadBudget'})(HomeView)
 

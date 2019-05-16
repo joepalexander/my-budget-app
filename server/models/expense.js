@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Expense = sequelize.define('expense', {
+  const Expense = sequelize.define('Expense', {
     id: {
       allowNull: false,
       autoIncrement: true,
