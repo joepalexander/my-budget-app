@@ -1,6 +1,5 @@
 //NPM
 import React, { Component } from 'react';
-import jwt from 'jsonwebtoken';
 
 // GraphQL
 import { graphql } from 'react-apollo'
@@ -9,7 +8,17 @@ import gql from 'graphql-tag'
 // CSS
 import './HomeView.css'
 
+// React
+import Header from "../navigation/Header";
+
+
 class HomeView extends Component {
+
+  logout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    this.props.history.push("/login");
+  }
 
   render(){
     const { loadBudget } = this.props;
@@ -22,16 +31,9 @@ class HomeView extends Component {
 
     const budget = loadBudget.budget;
 
-    let tokenData = jwt.decode(localStorage.getItem('accessToken'))
-
     return (
       <div>
-        <div>
-          {`Welcome ${tokenData.firstName}`}
-        </div>
-        <div>
-          {`Budget:`}
-        </div>
+        <Header />
         <div>
           <table>
             <tbody>
