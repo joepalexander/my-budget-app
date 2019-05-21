@@ -3,8 +3,7 @@ const { gql } = require("apollo-server-express");
 
 module.exports = `
   type Query {
-    users: [Budget]
-    budget: [Budget]
-    expenses: [Expense]
+    Budget: [Budget]
+    Expenses: [Expense]
   }
 `;

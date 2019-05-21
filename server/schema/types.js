@@ -7,12 +7,7 @@ module.exports = `
     id: ID
     firstName: String
     lastName: String
-    createdAt: Date
-    updatedAt: Date
     email: String
-    hashedPass: String
-    salt: String
-    count: Int
   },
 
   type LoginResponse {

@@ -25,12 +25,13 @@ class HomeView extends Component {
     if(loadBudget.loading) {
       return <div>Loading...</div>
     }
-    if(!loadBudget.budget){
-      return <div>Budget not able to load.</div>
+    console.log(loadBudget)
+    if(!loadBudget.Budget){
+      return <div>Unable to Load Budget.</div>
     }
 
-    const budget = loadBudget.budget;
-    const expenses = loadBudget.expenses;
+    const budget = loadBudget.Budget;
+    const expenses = loadBudget.Expenses;
 
     return (
       <div>
@@ -90,7 +91,7 @@ class HomeView extends Component {
 
 export const LOAD_HOME = gql`
   query loadBudget {
-    budget {
+    Budget {
       id
       startDate
       durationInMonths
@@ -98,7 +99,7 @@ export const LOAD_HOME = gql`
       name
       description
     }
-    expenses {
+    Expenses {
       id
       transactionDate
       amount
