@@ -69,18 +69,18 @@ module.exports = {
   },
     
   addExpense: async (parent, args, { db, req, res }, info) => {
-
+    console.log("Trying to add expense.")
     await db.Expense.create({
-      userId: args.userId,
+      userId: req.userId,
       createdAt: new Date(),
       updatedAt: new Date(),
       transactionDate: args.transactionDate,
-      merchantId: args.merchantId,
-      categoryId: args.categoryId,
-      amount: args.amount,
+      merchantId: +(args.merchantId),
+      categoryId: +(args.categoryId),
+      amount: +(args.amount),
       description: args.description
     }).then( () => {
-      console.log("New Expense Added for User Id: " + args.userId);
+      console.log("New Expense Added for User Id: " + req.userId);
     }).catch(console.log);
 
     return true;

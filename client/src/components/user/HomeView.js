@@ -12,6 +12,7 @@ import './HomeView.css'
 import Header from "../navigation/Header";
 import HomeBudgetView from "../budget/HomeBudgetView"
 import HomeExpensesView from "../expenses/HomeExpensesView"
+import HomeAddExpense from "../expenses/HomeAddExpense"
 
 class HomeView extends Component {
 
@@ -27,6 +28,7 @@ class HomeView extends Component {
       <div>
         <Header />
         <HomeBudgetView />
+        <HomeAddExpense />
         <HomeExpensesView />
       </div>
     )
