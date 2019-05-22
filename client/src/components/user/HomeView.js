@@ -10,7 +10,8 @@ import './HomeView.css'
 
 // React
 import Header from "../navigation/Header";
-
+import HomeBudgetView from "../budget/HomeBudgetView"
+import HomeExpensesView from "../expenses/HomeExpensesView"
 
 class HomeView extends Component {
 
@@ -21,93 +22,16 @@ class HomeView extends Component {
   }
 
   render(){
-    const { loadBudget } = this.props;
-    if(loadBudget.loading) {
-      return <div>Loading...</div>
-    }
-    console.log(loadBudget)
-    if(!loadBudget.Budget){
-      return <div>Unable to Load Budget.</div>
-    }
-
-    const budget = loadBudget.Budget;
-    const expenses = loadBudget.Expenses;
 
     return (
       <div>
         <Header />
-        <div>
-          <h3>Budget:</h3>
-          <table>
-            <tbody>
-              <tr>
-                <th>Duration (Months) </th>
-                <th>Start Date</th>
-                <th>Category</th>
-                <th>Description</th>
-              </tr>
-              {
-                budget.map(item => {
-                  return (
-                    <tr key={item.id}>
-                      <td>{item.durationInMonths}</td>
-                      <td>{item.startDate}</td>
-                      <td>{item.name}</td>
-                      <td>{item.description}</td>
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-          </table>
-          <h3>Expenses:</h3>
-          <table>
-            <tbody>
-              <tr>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Merchant</th>
-                <th>Amount</th>
-              </tr>
-              {
-                expenses.map(item => {
-                  return (
-                    <tr key={item.id}>
-                      <td>{item.transationsDate}</td>
-                      <td>{item.description}</td>
-                      <td>{item.merchant}</td>
-                      <td>{item.amount / 100}</td>
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-          </table>
-        </div>
+        <HomeBudgetView />
+        <HomeExpensesView />
       </div>
     )
   }
 }
 
-export const LOAD_HOME = gql`
-  query loadBudget {
-    Budget {
-      id
-      startDate
-      durationInMonths
-      categoryId
-      name
-      description
-    }
-    Expenses {
-      id
-      transactionDate
-      amount
-      description
-      merchant
-    }
-  }
-`
-
-export default graphql(LOAD_HOME, {name: 'loadBudget'})(HomeView)
+export default HomeView;
 

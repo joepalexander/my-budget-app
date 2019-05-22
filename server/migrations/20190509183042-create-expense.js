@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      transationDate: {
+      transactionDate: {
         type: Sequelize.DATE
       },
       merchantId: {

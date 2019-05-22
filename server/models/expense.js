@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.DATE
     },
-    transationDate: {
+    transactionDate: {
       type: DataTypes.DATE
     },
     merchantId: {
