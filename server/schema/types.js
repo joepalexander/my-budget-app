@@ -7,12 +7,7 @@ module.exports = `
     id: ID
     firstName: String
     lastName: String
-    createdAt: Date
-    updatedAt: Date
     email: String
-    hashedPass: String
-    salt: String
-    count: Int
   },
 
   type LoginResponse {
@@ -34,6 +29,20 @@ module.exports = `
     id: ID
     name: String
     description: String
+  }
+
+  type Expense {
+    id: ID
+    categoryId: ID
+    transactionDate: Date
+    merchant: String
+    amount: Int
+    description: String
+  }
+
+  type Merchant {
+    id: ID
+    name: String
   }
 `;
 

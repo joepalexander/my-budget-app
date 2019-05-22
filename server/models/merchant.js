@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   Merchant.associate = function(models) {
-    // associations can be defined here
+    Merchant.hasMany(models.Expense, {foreignKey: 'merchantId'})
   };
   return Merchant;
 };
