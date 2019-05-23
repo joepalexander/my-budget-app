@@ -1,14 +1,18 @@
 //NPM
 import React, { Component } from 'react';
+import { Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography, Toolbar } from '@material-ui/core';
+import { styled } from '@material-ui/styles';
 
 // GraphQL
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-// CSS
+//Styles
 
-// React
-
+const ExpensesPaper = styled(Paper)({
+  width: '100%',
+  marginTop: '20px'
+})
 
 class HomeExpensesView extends Component {
 
@@ -17,7 +21,6 @@ class HomeExpensesView extends Component {
     if(loadExpenses.loading) {
       return <div>Loading...</div>
     }
-    console.log(loadExpenses)
     if(!loadExpenses.Expenses){
       return <div>Unable to Load Expenses.</div>
     }
@@ -25,31 +28,33 @@ class HomeExpensesView extends Component {
     const expenses = loadExpenses.Expenses;
 
     return (
-      <div>
-        <h3>Expenses:</h3>
-        <table>
-          <tbody>
-            <tr>
-              <th>Date</th>
-              <th>Description</th>
-              <th>Merchant</th>
-              <th>Amount</th>
-            </tr>
-            {
-              expenses.map(item => {
+        <ExpensesPaper>
+          <Toolbar>
+            <Typography variant="h6">Expenses</Typography>
+          </Toolbar>
+          <Table size='small'>
+            <TableHead>
+              <TableRow>
+                <TableCell align="right">Date</TableCell>
+                <TableCell align="right">Description</TableCell>
+                <TableCell align="right">Merchant</TableCell>
+                <TableCell align="right">Amout</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+            {expenses.map(item => {
                 return (
-                  <tr key={item.id}>
-                    <td>{item.transactionDate}</td>
-                    <td>{item.description}</td>
-                    <td>{item.merchant}</td>
-                    <td>{item.amount / 100}</td>
-                  </tr>
+                  <TableRow key={item.id}>
+                    <TableCell align="right">{item.transactionDate}</TableCell>
+                    <TableCell align="right">{item.description}</TableCell>
+                    <TableCell align="right">{item.merchant}</TableCell>
+                    <TableCell align="right">{item.amount / 100}</TableCell>
+                  </TableRow>
                 )
-              })
-            }
-          </tbody>
-        </table>
-      </div>
+              })}
+            </TableBody>
+          </Table>
+        </ExpensesPaper>
     )
   }
 }

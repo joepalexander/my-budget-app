@@ -1,15 +1,29 @@
 //NPM
 import React, { Component } from 'react';
+import { Paper, Typography, Toolbar, TextField, Select, FormControl, InputLabel, FormHelperText, Fab } from '@material-ui/core';
+import { styled } from '@material-ui/styles';
+import AddIcon from '@material-ui/icons/Add';
+
 
 // GraphQL
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { isUndefined } from 'util';
 
-// CSS
+//Styles
 
-// React
+const AddExpensePaper = styled(Paper)({
+  display: 'flex',
+  width: '100%',
+  marginTop: '20px'
+})
 
+const AddExpenseForm = styled('div')({
+  display: 'flex',
+  width: '100%',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  margin: '20px'
+})
 
 class HomeAddExpense extends Component {
 
@@ -48,66 +62,64 @@ class HomeAddExpense extends Component {
   render(){
 
     return (
-      <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-        <div>
-          <input 
-            type="date" 
-            name="transactionDate" 
-            value={this.state.firstName} 
-            onChange={this.handleChange} 
-          />
-        </div>
-        <div>
-          <select 
-            name="merchantId" 
-            value={this.state.merchantId} 
-            onChange={this.handleChange} 
-          >
-            <option value={undefined}>Merchant</option>
-            <option value="1">Starbucks</option>
-            <option value="2">Loblaws</option>
-            <option value="3">Uber</option>
-          </select>
-        </div> 
-        <div>
-        <select 
-            name="categoryId" 
-            value={this.state.categoryId} 
-            onChange={this.handleChange} 
-          >
-            <option value={undefined}>Category</option>
-            <option value="1">Food and Drink</option>
-            <option value="2">Transportaion</option>
-            <option value="3">Entertainment</option>
-            <option value="3">Rent and Morgage</option>
-
-          </select>
-        </div>
-        <div>
-          <input 
-            type="number" 
-            name="amount" 
-            placeholder="$" 
-            value={this.state.amount}
-            onChange={this.handleChange} 
-          />
-        </div>
-        <div>
-          <input 
-            type="text" 
-            name="description" 
-            placeholder="Description" 
-            value={this.state.description}
-            onChange={this.handleChange} 
-          />
-        </div>
-        <div>
-          <button 
-            onClick={this.addExpense}>
-              Add
-          </button> 
-        </div>
-      </div>
+      <AddExpensePaper>
+        <AddExpenseForm>
+          <FormControl>
+            <TextField 
+              type="date" 
+              name="transactionDate" 
+              onChange={this.handleChange} 
+            />
+            <FormHelperText>Transaction Date</FormHelperText>
+          </FormControl>
+          <FormControl>
+            <Select 
+              name="merchantId" 
+              onChange={this.handleChange} 
+            >
+              <option value="1">Starbucks</option>
+              <option value="2">Loblaws</option>
+              <option value="3">Uber</option>
+            </Select>
+            <FormHelperText>Merchant</FormHelperText>
+          </FormControl> 
+          <FormControl>
+            <Select 
+                name="categoryId" 
+                onChange={this.handleChange} 
+              >
+                <option value="1">Food and Drink</option>
+                <option value="2">Transportaion</option>
+                <option value="3">Entertainment</option>
+                <option value="3">Rent and Morgage</option>
+              </Select>
+              <FormHelperText>Category</FormHelperText>
+          </FormControl>
+          <FormControl>
+            <TextField 
+              type="number" 
+              name="amount" 
+              placeholder="$" 
+              onChange={this.handleChange} 
+            />
+            <FormHelperText>Amount</FormHelperText>
+          </FormControl>
+          <FormControl>
+            <TextField 
+              type="text" 
+              name="description" 
+              onChange={this.handleChange} 
+            />
+           <FormHelperText>Description</FormHelperText>
+          </FormControl>
+          <FormControl>
+            <Fab color="primary"
+              onClick={this.addExpense}>
+                <AddIcon />
+            </Fab> 
+          </FormControl>
+        </AddExpenseForm>
+      </AddExpensePaper>
     )
   }
 }

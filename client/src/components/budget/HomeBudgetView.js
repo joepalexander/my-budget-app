@@ -1,14 +1,18 @@
 //NPM
 import React, { Component } from 'react';
+import { Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography, Toolbar } from '@material-ui/core';
+import { styled } from '@material-ui/styles';
 
 // GraphQL
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-// CSS
+//Styles
 
-// React
-
+const BudgetPaper = styled(Paper)({
+  width: '100%',
+  marginTop: '20px'
+})
 
 class HomeBudgetView extends Component {
 
@@ -17,7 +21,6 @@ class HomeBudgetView extends Component {
     if(loadBudget.loading) {
       return <div>Loading...</div>
     }
-    console.log(loadBudget)
     if(!loadBudget.Budget){
       return <div>Unable to Load Budget.</div>
     }
@@ -25,31 +28,33 @@ class HomeBudgetView extends Component {
     const budget = loadBudget.Budget;
 
     return (
-        <div>
-          <h3>Budget:</h3>
-          <table>
-            <tbody>
-              <tr>
-                <th>Duration (Months) </th>
-                <th>Start Date</th>
-                <th>Category</th>
-                <th>Description</th>
-              </tr>
-              {
-                budget.map(item => {
-                  return (
-                    <tr key={item.id}>
-                      <td>{item.durationInMonths}</td>
-                      <td>{item.startDate}</td>
-                      <td>{item.name}</td>
-                      <td>{item.description}</td>
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-          </table>
-        </div>
+        <BudgetPaper>
+          <Toolbar>
+            <Typography variant="h6">Budget</Typography>
+          </Toolbar>
+          <Table size='small'>
+            <TableHead>
+              <TableRow>
+                <TableCell align="right">Duration (Months) </TableCell>
+                <TableCell align="right">Start Date</TableCell>
+                <TableCell align="right">Category</TableCell>
+                <TableCell align="right">Description</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+            {budget.map(item => {
+                return (
+                  <TableRow key={item.id}>
+                    <TableCell align="right">{item.durationInMonths}</TableCell>
+                    <TableCell align="right">{item.startDate}</TableCell>
+                    <TableCell align="right">{item.name}</TableCell>
+                    <TableCell align="right">{item.description}</TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        </BudgetPaper>
     )
   }
 }

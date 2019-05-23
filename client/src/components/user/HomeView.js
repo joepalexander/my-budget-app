@@ -5,9 +5,6 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-// CSS
-import './HomeView.css'
-
 // React
 import Header from "../navigation/Header";
 import HomeBudgetView from "../budget/HomeBudgetView"
